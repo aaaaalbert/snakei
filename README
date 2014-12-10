@@ -1,0 +1,11 @@
+This is snakei ("snake eye"), my attempt to write a C library 
+buildable with the Android NDK that provides functions to read 
+out sensors to Python.
+
+snakei's functions will be defined to use Python.h's type 
+definitions, function prototypes, etc. so that we can (eventually)
+
+`import snakei`
+
+in Python and call its functions.
+
