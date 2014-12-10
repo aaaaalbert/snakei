@@ -4,7 +4,7 @@
  * Let's see if this builds at all.
  */
 
-#include "../python2.7-libs/include/python2.7/Python.h"
+#include <Python.h>
 
 /*
  * Function to be called from Python
