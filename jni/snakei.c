@@ -29,7 +29,7 @@ static PyObject* py_myOtherFunction(PyObject* self, PyObject* args)
  * Bind Python function names to our C functions
  */
 static PyMethodDef myModule_methods[] = {
-	{"myFunction", py_myFunction, METH_VARAGS},
+	{"myFunction", py_myFunction, METH_VARARGS},
 	{"myOtherFunction", py_myOtherFunction, METH_VARARGS},
 	{NULL, NULL}
 };
