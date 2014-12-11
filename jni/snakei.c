@@ -37,7 +37,7 @@ static PyMethodDef myModule_methods[] = {
 /*
  * Python calls this to let us initialize our module
  */
-void initmyModule()
+void initsnakei()
 {
-	(void) Py_InitModule("myModule", myModule_methods);
+	(void) Py_InitModule("snakei", myModule_methods);
 }
