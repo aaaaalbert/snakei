@@ -4,7 +4,10 @@
 
 #include <Python.h>
 #include <jni.h>
-#include <android_native_app_glue.h>
+
+#include <android/log.h>
+
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "PythonExt", __VA_ARGS__))
 
 /*
  * Function to be called from Python
@@ -13,11 +16,21 @@
  */
 static PyObject* py_myFunction(PyObject* self, PyObject* args)
 {
-	struct android_app* state;
 	char *s = "Hello from C!";
 
+	JNIEnv* env;
+	JavaVM** vm;
 
-	return Py_BuildValue("s", s);
+	LOGI("Getting JavaVM");
+	struct JNINativeInterface jnif;
+	jnif.GetJavaVM(env, vm);  // From jni.h
+	LOGI("Got JavaVM, getting version");
+
+	int version = (int) jnif.GetVersion(env);
+	LOGI("Got version '%i'", version);
+
+	return Py_BuildValue("i", version);
+	//return Py_BuildValue("s", s);
 }
 
 /*
@@ -44,17 +57,8 @@ static PyMethodDef myModule_methods[] = {
  */
 void initsnakei()
 {
+	LOGI("Initializing snakei");
 	(void) Py_InitModule("snakei", myModule_methods);
+	LOGI("Done initializing snakei");
 }
 
-
-void android_main(struct android_app* state)
-{
-	JNIEnv *env = state->activity->env;
-	JavaVM *vm = state->activity->vm;
-	(*vm)->AttachCurrentThread(vm, &env, NULL);
-
-	/* TODO Interesting code should go here! */
-
-	(*vm)->DetachCurrentThread(vm);
-}
