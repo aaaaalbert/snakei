@@ -18,8 +18,8 @@ static PyObject* py_myFunction(PyObject* self, PyObject* args)
 {
 	char *s = "Hello from C!";
 
-	JNIEnv* env;
-	JavaVM** vm;
+	JNIEnv** env;
+	JavaVM* vm;
 	void* void_pointer;
 
 	LOGI("Attaching current thread");
