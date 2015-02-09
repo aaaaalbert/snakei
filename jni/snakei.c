@@ -20,17 +20,20 @@ static PyObject* py_myFunction(PyObject* self, PyObject* args)
 
 	JNIEnv* env;
 	JavaVM** vm;
+	void* void_pointer;
 
-	LOGI("Getting JavaVM");
-	struct JNINativeInterface jnif;
-	jnif.GetJavaVM(env, vm);  // From jni.h
-	LOGI("Got JavaVM, getting version");
+	LOGI("Attaching current thread");
+	struct JNIInvokeInterface jniiif;
+	jniiif.AttachCurrentThread(vm, env, void_pointer);
 
-	int version = (int) jnif.GetVersion(env);
-	LOGI("Got version '%i'", version);
+	LOGI("Attached!");
 
-	return Py_BuildValue("i", version);
-	//return Py_BuildValue("s", s);
+	LOGI("Detaching current thread");
+	jniiif.DetachCurrentThread(vm);
+	LOGI("Don");
+
+	//return Py_BuildValue("i", version);
+	return Py_BuildValue("s", s);
 }
 
 /*
