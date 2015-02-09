@@ -22,15 +22,19 @@ static PyObject* py_myFunction(PyObject* self, PyObject* args)
 	JavaVM* vm;
 	void* void_pointer;
 
-	LOGI("Attaching current thread");
+	//LOGI("Attaching current thread");
 	struct JNIInvokeInterface jniiif;
+	/*
 	jniiif.AttachCurrentThread(vm, env, void_pointer);
 
 	LOGI("Attached!");
+	*/
 
+	// Can we at least make something break by detaching 
+	// from a not-attached VM?
 	LOGI("Detaching current thread");
 	jniiif.DetachCurrentThread(vm);
-	LOGI("Don");
+	LOGI("Done");
 
 	//return Py_BuildValue("i", version);
 	return Py_BuildValue("s", s);
