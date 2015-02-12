@@ -24,7 +24,7 @@ COMPILED_LIBRARIES := python2.7 #native_app_glue
 
 LOCAL_MODULE    := snakei
 LOCAL_SRC_FILES := snakei.c
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../python2.7-libs/include/python2.7/
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../python2.7-libs/include/python2.7/ $(LOCAL_PATH)/../../../devel/android-ndk-r10d/platforms/android-9/arch-arm/usr/include
 LOCAL_LDLIBS := -Lpython2.7-libs/lib -llog #-lpython$(PYTHONVER) #-ldl -lz -lm -landroid -llog
 # Use this instead of -lpython$(VER) in LOCAL_LDLIBS:
 LOCAL_SHARED_LIBRARIES := libpython$(PYTHONVER)

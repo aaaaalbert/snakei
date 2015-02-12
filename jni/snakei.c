@@ -1,13 +1,11 @@
-/* 
- * This time, try to access a Java method from C.
- */
-
 #include <Python.h>
 #include <jni.h>
+#include "android/native_activity.h"
 
 #include <android/log.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "PythonExt", __VA_ARGS__))
+
 
 /*
  * Function to be called from Python
@@ -18,23 +16,18 @@ static PyObject* py_myFunction(PyObject* self, PyObject* args)
 {
 	char *s = "Hello from C!";
 
-	JNIEnv** env;
-	JavaVM* vm;
+	// In theory, this gives us a VM and Env to work with
+	ANativeActivity ana;
+
+	JNIEnv* env = ana.env;
+	JavaVM* vm = ana.vm;
 	void* void_pointer;
 
-	//LOGI("Attaching current thread");
-	struct JNIInvokeInterface jniiif;
-	/*
-	jniiif.AttachCurrentThread(vm, env, void_pointer);
+	struct JNINativeInterface jnini;
 
-	LOGI("Attached!");
-	*/
+	LOGI("The fun begins!");
 
-	// Can we at least make something break by detaching 
-	// from a not-attached VM?
-	LOGI("Detaching current thread");
-	jniiif.DetachCurrentThread(vm);
-	LOGI("Done");
+	LOGI("jnini version: %i", jnini.GetVersion(env));
 
 	//return Py_BuildValue("i", version);
 	return Py_BuildValue("s", s);
